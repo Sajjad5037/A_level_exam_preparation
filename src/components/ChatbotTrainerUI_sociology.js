@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from "react";
 import { marked } from 'marked';
-import '../globals.css';
-
 
 
 const ChatbotTrainerUI_sociology = ({ doctorData }) => {
@@ -276,164 +274,318 @@ Student Response Length: ${result.student_response.length} characters`);
   };
 
   return (
-  <div className="flex flex-center gap-30 page-container">
-  {/* Left Panel */}
-  <div className="card flex-column panel">
-    <h3 className="text-center heading">Upload Your Response Image</h3>
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      padding: "20px 0",     // ✅ vertical only, no left/right
+      fontFamily: "Arial, sans-serif",
+      gap: 20,
+      width: "100%",         // ✅ stretch full width
+      boxSizing: "border-box"
+    }}
+  >
+    {/* Left Panel */}
+<div
+  style={{
+    width: 300,
+    padding: 20,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 8,
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+    height: 525,
+    display: 'flex',
+    flexDirection: 'column',
+  }}
+>
+  <h3 style={{ textAlign: 'center', color: '#333', marginBottom: 20 }}>
+    Upload Image of your response
+  </h3>
 
-    <select
-      multiple
-      size={10}
-      value={selectedImages.map(img => img.name)}
-      onChange={handleImageSelect}
-      className="input-select"
+  <select
+    multiple
+    size={10}
+    value={selectedImages.map(img => img.name)}
+    onChange={handleImageSelect}
+    style={{
+      width: '100%',
+      height: 300,
+      padding: 10,
+      marginBottom: 15,
+      borderRadius: 5,
+      border: '1px solid #ccc',
+      flexShrink: 0,
+      boxSizing: 'border-box',
+    }}
+  >
+    {images.map((file, index) => (
+      <option key={index} value={file.name}>
+        {file.name}
+      </option>
+    ))}
+  </select>
+
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 10,
+      marginTop: 'auto',
+    }}
+  >
+    <label
+      htmlFor="fileInput"
+      style={{
+        padding: '10px 20px',
+        backgroundColor: '#4CAF50',
+        color: '#fff',
+        borderRadius: 5,
+        cursor: 'pointer',
+        textAlign: 'center',
+        userSelect: 'none',
+      }}
     >
-      {images.map((file, index) => (
-        <option key={index} value={file.name}>
-          {file.name}
-        </option>
-      ))}
-    </select>
+      Upload Image
+    </label>
 
-    <div className="flex flex-column gap-10 mt-auto">
-      <label htmlFor="fileInput" className="btn btn-primary">
-        Upload Image
-      </label>
+    <input
+      id="fileInput"
+      type="file"
+      accept="image/*"
+      multiple
+      onChange={handleFileChange}
+      style={{ display: 'none' }}
+    />
 
-      <input
-        id="fileInput"
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-      />
+    <button
+      onClick={handleRemoveSelected}
+      style={{
+        padding: 10,
+        borderRadius: 5,
+        color: '#fff',
+        backgroundColor: '#FF0000',
+        cursor: 'pointer',
+        border: 'none',
+      }}
+    >
+      Remove
+    </button>
 
-      <button
-        onClick={handleRemoveSelected}
-        className="btn btn-danger"
-      >
-        Remove
-      </button>
+    <button
+      onClick={handleTrain}
+      disabled={isProcessing} // optional: prevent double clicks
+      style={{
+        padding: 10,
+        borderRadius: 5,
+        color: '#fff',
+        backgroundColor: isProcessing ? '#007bff' : '#4CAF50', // optional: change color while processing
+        cursor: isProcessing ? 'not-allowed' : 'pointer',
+        border: 'none',
+      }}
+    >
+      {isProcessing ? 'Processing images...' : 'Send your essay for checking...'}
+    </button>
 
-      <button
-        onClick={handleTrain}
-        disabled={isProcessing}
-        className={`btn ${isProcessing ? 'btn-info' : 'btn-primary'}`}
-      >
-        {isProcessing ? 'Processing images...' : 'Send Your Essay for Checking'}
-      </button>
-    </div>
-  </div>
-
-  {/* Spinner CSS */}
-  <style>
-    {`
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `}
-  </style>
-
-
-
-
-    {/* Right Panel */}
-    <div className="panel flex-column">
-  {/* Subject & Marks Row */}
-  <div className="flex gap-20 mb-12 align-center">
-    {/* Subject Dropdown */}
-    <div className="flex-column">
-      <label htmlFor="subjectSelect" className="label">
-        Subject:
-      </label>
-      <select
-        id="subjectSelect"
-        value={subject}
-        onChange={(e) => setSubject(e.target.value)}
-        className="input-select"
-      >
-        <option value="">-- Select Subject --</option>
-        <option value="sociology">Sociology</option>
-        <option value="economics">Economics</option>
-        <option value="history">History</option>
-        <option value="political_science">Political Science</option>
-        <option value="literature">Literature</option>
-      </select>
-    </div>
-
-    {/* Marks Input */}
-    <div className="flex-column">
-      <label htmlFor="marksInput" className="label">
-        Marks:
-      </label>
-      <input
-        id="marksInput"
-        type="number"
-        value={marks}
-        onChange={(e) => setMarks(Number(e.target.value))}
-        placeholder="e.g. 6, 10, 20"
-        className="input-text"
-      />
-    </div>
-
-    {/* Question Dropdown */}
-    <div className="flex-column flex-1">
-      <label htmlFor="questionSelect" className="label">
-        Question:
-      </label>
-      <select
-        id="questionSelect"
-        value={question_text}
-        onChange={(e) => setQuestionText(e.target.value)}
-        className="input-select w-full"
-      >
-        <option value="">
-          -- Select a valid question mark to see the list of questions --
-        </option>
-        {questionsByMarks[marks]?.map((q, idx) => (
-          <option key={idx} value={q}>
-            {q}
-          </option>
-        ))}
-      </select>
-    </div>
-  </div>
-
-  {/* Chat Log */}
-  <div className="chat-container">
-    {chatLog.map((msg, index) => {
-      let cleanedMessage = msg.message;
-      if (msg.type === 'bot' && typeof msg.message === 'string') {
-        cleanedMessage = msg.message
-          .replace(/([^\.\?\!])\n/g, '$1 ')
-          .replace(/\n/g, '<br>');
-      }
-
-      return (
-        <div
-          key={index}
-          className={`chat-message ${msg.type === 'user' ? 'chat-user' : 'chat-bot'}`}
-        >
-          {msg.type === 'bot' && typeof cleanedMessage === 'string' ? (
-            <div
-              className="chat-bubble"
-              dangerouslySetInnerHTML={{ __html: marked.parse(cleanedMessage) }}
-            />
-          ) : (
-            <div className="chat-bubble">{cleanedMessage}</div>
-          )}
-        </div>
-      );
-    })}
-  </div>
-
-  <div className="flex gap-10 align-center mt-10">
-    {/* Add additional input/buttons here if needed */}
+    
+    
   </div>
 </div>
 
+{/* Add global CSS for spinner animation */}
+<style>
+  {`
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  `}
+</style>
+
+    {/* Right Panel */}
+    <div
+      style={{
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#f9f9f9',
+        borderRadius: 8,
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+        height: 525,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+     {/* Subject & Marks Row */}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 20,        // space between each field
+        marginBottom: '12px',
+      }}
+    >
+      {/* Subject Dropdown */}
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <label htmlFor="subjectSelect" style={{ fontWeight: '600', color: '#333', marginBottom: '4px' }}>
+          Subject:
+        </label>
+        <select
+          id="subjectSelect"
+          style={{
+            padding: '6px 10px',
+            borderRadius: 6,
+            border: '1px solid #ccc',
+            minWidth: 160,
+          }}
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+        >
+          <option value="">-- Select Subject --</option>
+          <option value="sociology">Sociology</option>
+          <option value="economics">Economics</option>
+          <option value="history">History</option>
+          <option value="political_science">Political Science</option>
+          <option value="literature">Literature</option>
+        </select>
+      </div>
+    
+      {/* Marks Input */}
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <label htmlFor="marksInput" style={{ fontWeight: '600', color: '#333', marginBottom: '4px' }}>
+          Marks:
+        </label>
+        <input
+          id="marksInput"
+          type="number"
+          value={marks}
+          onChange={(e) => setMarks(Number(e.target.value))}
+          placeholder="e.g. 6, 10, 20"
+          style={{
+            width: 80,
+            padding: "5px 8px",
+            borderRadius: 4,
+            border: "1px solid #ccc",
+          }}
+        />
+      </div>
+    
+      {/* Question Dropdown */}
+      <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <label htmlFor="questionSelect" style={{ fontWeight: '600', color: '#333', marginBottom: '4px' }}>
+          Question:
+        </label>
+        <select
+          id="questionSelect"
+          style={{
+            padding: '6px 10px',
+            borderRadius: 6,
+            border: '1px solid #ccc',
+            width: '100%',
+          }}
+          value={question_text}
+          onChange={(e) => setQuestionText(e.target.value)}
+        >
+          <option value="">-- Select a valid question mark to see the list of questions  --</option>
+          {questionsByMarks[marks]?.map((q, idx) => (
+            <option key={idx} value={q}>
+              {q}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+      
+
+      <div
+        style={{
+          height: 400,
+          overflowY: 'auto',
+          marginBottom: 15,
+          border: '1px solid #ddd',
+          padding: 15,
+          borderRadius: 8,
+          backgroundColor: '#fff',
+          flexShrink: 0,
+          boxSizing: 'border-box',
+        }}
+      >
+        {chatLog.map((msg, index) => {
+  // Only call .replace if msg.message is a string
+  let cleanedMessage = msg.message;
+  if (msg.type === 'bot' && typeof msg.message === 'string') {
+    cleanedMessage = msg.message
+      .replace(/([^\.\?\!])\n/g, '$1 ') // Merge line breaks not after sentence endings
+      .replace(/\n/g, '<br>'); // Convert remaining line breaks to <br> tags
+  }
+
+  return (
+    <div
+      key={index}
+      style={{
+        marginBottom: 10,
+        textAlign: msg.type === 'user' ? 'right' : 'left',
+      }}
+    >
+      {msg.type === 'bot' ? (
+        typeof cleanedMessage === 'string' ? (
+          <div
+            style={{
+              display: 'block',
+              backgroundColor: '#f1f1f1',
+              padding: 10,
+              borderRadius: 10,
+              maxWidth: '90%',
+              wordWrap: 'break-word',
+              lineHeight: 1.6,
+            }}
+            dangerouslySetInnerHTML={{ __html: marked.parse(cleanedMessage) }}
+          />
+        ) : (
+          // If cleanedMessage is not a string, render as React element
+          <div
+            style={{
+              display: 'block',
+              backgroundColor: '#f1f1f1',
+              padding: 10,
+              borderRadius: 10,
+              maxWidth: '90%',
+              wordWrap: 'break-word',
+              lineHeight: 1.6,
+            }}
+          >
+            {cleanedMessage}
+          </div>
+        )
+      ) : (
+        <div
+          style={{
+            display: 'inline-block',
+            backgroundColor: '#f1f1f1',
+            padding: 10,
+            borderRadius: 10,
+            maxWidth: '70%',
+            wordWrap: 'break-word',
+          }}
+        >
+          {cleanedMessage}
+        </div>
+      )}
+    </div>
+  );
+})}
+
+      </div>
+
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+        }}
+      >
+        
+      </div>
+    </div>
   </div>
 );
 };
