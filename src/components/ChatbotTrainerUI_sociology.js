@@ -274,63 +274,17 @@ Student Response Length: ${result.student_response.length} characters`);
   };
 
   return (
-  <div
-  style={{
-    display: "flex",
-    justifyContent: "center", // center content horizontally
-    alignItems: "flex-start",
-    padding: "40px 20px",     // more vertical padding
-    fontFamily: "'Inter', Arial, sans-serif",
-    gap: 30,
-    width: "100%",
-    boxSizing: "border-box",
-    backgroundColor: "#f5f6fa", // subtle page background
-    minHeight: "100vh",
-  }}
->
+  <div className="flex flex-center gap-30 page-container">
   {/* Left Panel */}
-  <div
-    style={{
-      width: 320,
-      padding: 25,
-      backgroundColor: '#ffffff',
-      borderRadius: 12,
-      boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
-      display: 'flex',
-      flexDirection: 'column',
-      height: 540,
-    }}
-  >
-    <h3
-      style={{
-        textAlign: 'center',
-        color: '#2c3e50',
-        fontSize: 20,
-        fontWeight: 600,
-        marginBottom: 20,
-      }}
-    >
-      Upload Your Response Image
-    </h3>
+  <div className="card flex-column panel">
+    <h3 className="text-center heading">Upload Your Response Image</h3>
 
     <select
       multiple
       size={10}
       value={selectedImages.map(img => img.name)}
       onChange={handleImageSelect}
-      style={{
-        width: '100%',
-        height: 300,
-        padding: 12,
-        marginBottom: 15,
-        borderRadius: 8,
-        border: '1px solid #d1d5db',
-        flexShrink: 0,
-        boxSizing: 'border-box',
-        fontSize: 14,
-        color: '#333',
-        backgroundColor: '#fafafa',
-      }}
+      className="input-select"
     >
       {images.map((file, index) => (
         <option key={index} value={file.name}>
@@ -339,29 +293,8 @@ Student Response Length: ${result.student_response.length} characters`);
       ))}
     </select>
 
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-        marginTop: 'auto',
-      }}
-    >
-      <label
-        htmlFor="fileInput"
-        style={{
-          padding: '12px 0',
-          backgroundColor: '#4CAF50',
-          color: '#fff',
-          borderRadius: 8,
-          cursor: 'pointer',
-          textAlign: 'center',
-          fontWeight: 500,
-          transition: 'background-color 0.3s',
-        }}
-        onMouseEnter={e => (e.target.style.backgroundColor = '#45a049')}
-        onMouseLeave={e => (e.target.style.backgroundColor = '#4CAF50')}
-      >
+    <div className="flex flex-column gap-10 mt-auto">
+      <label htmlFor="fileInput" className="btn btn-primary">
         Upload Image
       </label>
 
@@ -376,18 +309,7 @@ Student Response Length: ${result.student_response.length} characters`);
 
       <button
         onClick={handleRemoveSelected}
-        style={{
-          padding: 12,
-          borderRadius: 8,
-          color: '#fff',
-          backgroundColor: '#e74c3c',
-          cursor: 'pointer',
-          border: 'none',
-          fontWeight: 500,
-          transition: 'background-color 0.3s',
-        }}
-        onMouseEnter={e => (e.target.style.backgroundColor = '#c0392b')}
-        onMouseLeave={e => (e.target.style.backgroundColor = '#e74c3c')}
+        className="btn btn-danger"
       >
         Remove
       </button>
@@ -395,16 +317,7 @@ Student Response Length: ${result.student_response.length} characters`);
       <button
         onClick={handleTrain}
         disabled={isProcessing}
-        style={{
-          padding: 12,
-          borderRadius: 8,
-          color: '#fff',
-          backgroundColor: isProcessing ? '#3498db' : '#4CAF50',
-          cursor: isProcessing ? 'not-allowed' : 'pointer',
-          border: 'none',
-          fontWeight: 500,
-          transition: 'background-color 0.3s',
-        }}
+        className={`btn ${isProcessing ? 'btn-info' : 'btn-primary'}`}
       >
         {isProcessing ? 'Processing images...' : 'Send Your Essay for Checking'}
       </button>
@@ -420,6 +333,8 @@ Student Response Length: ${result.student_response.length} characters`);
       }
     `}
   </style>
+
+
 
 
     {/* Right Panel */}
