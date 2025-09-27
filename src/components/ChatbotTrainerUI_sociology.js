@@ -275,132 +275,152 @@ Student Response Length: ${result.student_response.length} characters`);
 
   return (
   <div
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      padding: "20px 0",     // ✅ vertical only, no left/right
-      fontFamily: "Arial, sans-serif",
-      gap: 20,
-      width: "100%",         // ✅ stretch full width
-      boxSizing: "border-box"
-    }}
-  >
-    {/* Left Panel */}
-<div
   style={{
-    width: 300,
-    padding: 20,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 8,
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    height: 525,
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    justifyContent: "center", // center content horizontally
+    alignItems: "flex-start",
+    padding: "40px 20px",     // more vertical padding
+    fontFamily: "'Inter', Arial, sans-serif",
+    gap: 30,
+    width: "100%",
+    boxSizing: "border-box",
+    backgroundColor: "#f5f6fa", // subtle page background
+    minHeight: "100vh",
   }}
 >
-  <h3 style={{ textAlign: 'center', color: '#333', marginBottom: 20 }}>
-    Upload Image of your response
-  </h3>
-
-  <select
-    multiple
-    size={10}
-    value={selectedImages.map(img => img.name)}
-    onChange={handleImageSelect}
-    style={{
-      width: '100%',
-      height: 300,
-      padding: 10,
-      marginBottom: 15,
-      borderRadius: 5,
-      border: '1px solid #ccc',
-      flexShrink: 0,
-      boxSizing: 'border-box',
-    }}
-  >
-    {images.map((file, index) => (
-      <option key={index} value={file.name}>
-        {file.name}
-      </option>
-    ))}
-  </select>
-
+  {/* Left Panel */}
   <div
     style={{
+      width: 320,
+      padding: 25,
+      backgroundColor: '#ffffff',
+      borderRadius: 12,
+      boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
       display: 'flex',
       flexDirection: 'column',
-      gap: 10,
-      marginTop: 'auto',
+      height: 540,
     }}
   >
-    <label
-      htmlFor="fileInput"
+    <h3
       style={{
-        padding: '10px 20px',
-        backgroundColor: '#4CAF50',
-        color: '#fff',
-        borderRadius: 5,
-        cursor: 'pointer',
         textAlign: 'center',
-        userSelect: 'none',
+        color: '#2c3e50',
+        fontSize: 20,
+        fontWeight: 600,
+        marginBottom: 20,
       }}
     >
-      Upload Image
-    </label>
+      Upload Your Response Image
+    </h3>
 
-    <input
-      id="fileInput"
-      type="file"
-      accept="image/*"
+    <select
       multiple
-      onChange={handleFileChange}
-      style={{ display: 'none' }}
-    />
-
-    <button
-      onClick={handleRemoveSelected}
+      size={10}
+      value={selectedImages.map(img => img.name)}
+      onChange={handleImageSelect}
       style={{
-        padding: 10,
-        borderRadius: 5,
-        color: '#fff',
-        backgroundColor: '#FF0000',
-        cursor: 'pointer',
-        border: 'none',
+        width: '100%',
+        height: 300,
+        padding: 12,
+        marginBottom: 15,
+        borderRadius: 8,
+        border: '1px solid #d1d5db',
+        flexShrink: 0,
+        boxSizing: 'border-box',
+        fontSize: 14,
+        color: '#333',
+        backgroundColor: '#fafafa',
       }}
     >
-      Remove
-    </button>
+      {images.map((file, index) => (
+        <option key={index} value={file.name}>
+          {file.name}
+        </option>
+      ))}
+    </select>
 
-    <button
-      onClick={handleTrain}
-      disabled={isProcessing} // optional: prevent double clicks
+    <div
       style={{
-        padding: 10,
-        borderRadius: 5,
-        color: '#fff',
-        backgroundColor: isProcessing ? '#007bff' : '#4CAF50', // optional: change color while processing
-        cursor: isProcessing ? 'not-allowed' : 'pointer',
-        border: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12,
+        marginTop: 'auto',
       }}
     >
-      {isProcessing ? 'Processing images...' : 'Send your essay for checking...'}
-    </button>
+      <label
+        htmlFor="fileInput"
+        style={{
+          padding: '12px 0',
+          backgroundColor: '#4CAF50',
+          color: '#fff',
+          borderRadius: 8,
+          cursor: 'pointer',
+          textAlign: 'center',
+          fontWeight: 500,
+          transition: 'background-color 0.3s',
+        }}
+        onMouseEnter={e => (e.target.style.backgroundColor = '#45a049')}
+        onMouseLeave={e => (e.target.style.backgroundColor = '#4CAF50')}
+      >
+        Upload Image
+      </label>
 
-    
-    
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      />
+
+      <button
+        onClick={handleRemoveSelected}
+        style={{
+          padding: 12,
+          borderRadius: 8,
+          color: '#fff',
+          backgroundColor: '#e74c3c',
+          cursor: 'pointer',
+          border: 'none',
+          fontWeight: 500,
+          transition: 'background-color 0.3s',
+        }}
+        onMouseEnter={e => (e.target.style.backgroundColor = '#c0392b')}
+        onMouseLeave={e => (e.target.style.backgroundColor = '#e74c3c')}
+      >
+        Remove
+      </button>
+
+      <button
+        onClick={handleTrain}
+        disabled={isProcessing}
+        style={{
+          padding: 12,
+          borderRadius: 8,
+          color: '#fff',
+          backgroundColor: isProcessing ? '#3498db' : '#4CAF50',
+          cursor: isProcessing ? 'not-allowed' : 'pointer',
+          border: 'none',
+          fontWeight: 500,
+          transition: 'background-color 0.3s',
+        }}
+      >
+        {isProcessing ? 'Processing images...' : 'Send Your Essay for Checking'}
+      </button>
+    </div>
   </div>
-</div>
 
-{/* Add global CSS for spinner animation */}
-<style>
-  {`
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  `}
-</style>
+  {/* Spinner CSS */}
+  <style>
+    {`
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}
+  </style>
+
 
     {/* Right Panel */}
     <div
