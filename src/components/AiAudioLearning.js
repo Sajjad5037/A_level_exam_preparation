@@ -126,7 +126,7 @@ const AiAudioLearning = ({ doctorData }) => {
   // Start conversation
   const handleStartConversation = async () => {
   // Validate required fields
-  if (!subject || !marks || !questionText) {
+  if (!subject || !marks || !question_text) {
     alert("⚠️ Please fill in all fields before starting the conversation.");
     return;
   }
@@ -137,7 +137,7 @@ const AiAudioLearning = ({ doctorData }) => {
     const payload = {
       subject,
       marks,
-      question_text: questionText,
+      question_text: question_text,
       username: doctorData?.name || "Guest",
     };
 
