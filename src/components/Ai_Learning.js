@@ -21,63 +21,65 @@ const Ai_Learning = ({ doctorData }) => {
 
 
 
-  const questionsByMarks = {
-  4: [
-    "Explain two features of a laboratory experiment and how they are used to test hypotheses in sociology.",
-    "Describe two types of qualitative interview.",
-    "Describe two ways children learn about gender identity.",
-    "Describe two ways increased life expectancy may impact upon the family.",
-    "Describe two ways social policies may impact upon the family.",
-    "Describe two ways childhood is a distinct period from adulthood.",
-    "Describe two ways schools can be seen as feminised."
-  ],
-  6: [
-    "Explain two strengths of using unstructured interviews in sociological research.",
-    "Using sociological material, give one argument against the view that the peer group is the most important influence in shaping age identity.",
-    "Explain two strengths of using content analysis in sociological research.",
-    "‘Education is the most important influence in shaping class identity.’ Using sociological material, give one argument against this view.",
-    "Explain two strengths of using laboratory experiments in sociological research.",
-    "‘Inadequate socialisation is the main cause of deviant behaviour.’",
-    "Explain one strength and one limitation of liberal feminist views of the family.",
-    "‘Social class is the most important factor affecting the experiences of children in the family.’ Using sociological material, give one argument against this view.",
-    "Explain one strength and one limitation of postmodernist views on family diversity.",
-    "Explain two strengths of functionalist views of the family."
-  ],
-  8: [
-    "Explain two reasons why some social groups are difficult to study.",
-    "Explain two ethical factors to consider when conducting observational studies.",
-    "Explain two reasons why unstructured interviews are high in validity.",
-    "Explain two reasons for greater gender equality in some families.",
-    "Explain two reasons why fewer people are getting married.",
-    "Explain two functions the family performs to benefit its members.",
-    "Explain two ways racism can affect attainment in schools."
-  ],
-  10: [
-    "The peer group is the most important influence in shaping age identity. Explain this view.",
-    "‘Education is the most important influence in shaping class identity.’ Explain this view.",
-    "‘Inadequate socialisation is the main cause of deviant behaviour.’",
-    "‘Social class is the most important factor affecting the experiences of children in the family.’ Explain this view.",
-    "‘The main role of the family is to benefit society.’ Explain this view.",
-    "‘There is no longer any social pressure on people to get married.’ Explain this view."
-  ],
-  12: [
-    "IQ tests are a fair measure of educational ability. Using sociological material, give two arguments against this view."
-  ],
-  26: [
-    "Evaluate the view that female identity is very different from fifty years ago.",
-    "Evaluate the use of structured interviews in sociological research.",
-    "Evaluate the view that human behaviour is shaped by nurture rather than nature.",
-    "Evaluate the positivist view that sociologists should use a scientific approach to research.",
-    "Evaluate the view that the family is the most important agent of socialisation in shaping identity.",
-    "Evaluate the view that sociological research can be value-free.",
-    "Evaluate the view that the main role of the family is to promote capitalist ideology.",
-    "Evaluate the view that marriage has become less important in society.",
-    "Evaluate the view that roles in the family are still based on traditional gender identities.",
-    "Evaluate the view that the nuclear family is the dominant family type.",
-    "Evaluate the view that cultural differences are the main cause of family diversity.",
-    "Evaluate the view that parenthood today is different from the past.",
-    "Evaluate the view that education contributes to value consensus."
-  ]
+  const questionsData = {
+  sociology: {
+    4: [
+      "Explain two features of a laboratory experiment and how they are used to test hypotheses in sociology.",
+      "Describe two types of qualitative interview.",
+      "Describe two ways children learn about gender identity.",
+      "Describe two ways increased life expectancy may impact upon the family.",
+      "Describe two ways social policies may impact upon the family.",
+      "Describe two ways childhood is a distinct period from adulthood.",
+      "Describe two ways schools can be seen as feminised."
+    ],
+    6: [
+      "Explain two strengths of using unstructured interviews in sociological research.",
+      "Using sociological material, give one argument against the view that the peer group is the most important influence in shaping age identity.",
+      "Explain two strengths of using content analysis in sociological research.",
+      "‘Education is the most important influence in shaping class identity.’ Using sociological material, give one argument against this view.",
+      "Explain two strengths of using laboratory experiments in sociological research.",
+      "‘Inadequate socialisation is the main cause of deviant behaviour.’",
+      "Explain one strength and one limitation of liberal feminist views of the family.",
+      "‘Social class is the most important factor affecting the experiences of children in the family.’ Using sociological material, give one argument against this view.",
+      "Explain one strength and one limitation of postmodernist views on family diversity.",
+      "Explain two strengths of functionalist views of the family."
+    ],
+    8: [
+      "Explain two reasons why some social groups are difficult to study.",
+      "Explain two ethical factors to consider when conducting observational studies.",
+      "Explain two reasons why unstructured interviews are high in validity.",
+      "Explain two reasons for greater gender equality in some families.",
+      "Explain two reasons why fewer people are getting married.",
+      "Explain two functions the family performs to benefit its members.",
+      "Explain two ways racism can affect attainment in schools."
+    ],
+    10: [
+      "The peer group is the most important influence in shaping age identity. Explain this view.",
+      "‘Education is the most important influence in shaping class identity.’ Explain this view.",
+      "‘Inadequate socialisation is the main cause of deviant behaviour.’",
+      "‘Social class is the most important factor affecting the experiences of children in the family.’ Explain this view.",
+      "‘The main role of the family is to benefit society.’ Explain this view.",
+      "‘There is no longer any social pressure on people to get married.’ Explain this view."
+    ],
+    12: [
+      "IQ tests are a fair measure of educational ability. Using sociological material, give two arguments against this view."
+    ],
+    26: [
+      "Evaluate the view that female identity is very different from fifty years ago.",
+      "Evaluate the use of structured interviews in sociological research.",
+      "Evaluate the view that human behaviour is shaped by nurture rather than nature.",
+      "Evaluate the positivist view that sociologists should use a scientific approach to research.",
+      "Evaluate the view that the family is the most important agent of socialisation in shaping identity.",
+      "Evaluate the view that sociological research can be value-free.",
+      "Evaluate the view that the main role of the family is to promote capitalist ideology.",
+      "Evaluate the view that marriage has become less important in society.",
+      "Evaluate the view that roles in the family are still based on traditional gender identities.",
+      "Evaluate the view that the nuclear family is the dominant family type.",
+      "Evaluate the view that cultural differences are the main cause of family diversity.",
+      "Evaluate the view that parenthood today is different from the past.",
+      "Evaluate the view that education contributes to value consensus."
+    ]
+  }
 };
 
   const handleRefresh = () => {
@@ -248,96 +250,114 @@ const Ai_Learning = ({ doctorData }) => {
           marginBottom: "12px",
         }}
       >
-
-        {/* Subject Dropdown */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label
-            htmlFor="subjectSelect"
-            style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-          >
-            Subject:
-          </label>
-          <select
-            id="subjectSelect"
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              minWidth: 160,
-            }}
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-          >
-            <option value="">-- Select Subject --</option>
-            <option value="sociology">Sociology</option>
-            <option value="economics">Economics</option>
-            <option value="history">History</option>
-            <option value="political_science">Political Science</option>
-            <option value="literature">Literature</option>
-          </select>
-        </div>
-      
-        {/* Marks Input */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label
-            htmlFor="marksInput"
-            style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-          >
-            Marks:
-          </label>
-          <input
-            id="marksInput"
-            type="number"
-            value={marks}
-            onChange={(e) => setMarks(Number(e.target.value))}
-            placeholder="e.g. 6, 10, 20"
-            style={{
-              width: 80,
-              padding: "5px 8px",
-              borderRadius: 4,
-              border: "1px solid #ccc",
-            }}
-          />
-        </div>
-      
-        {/* Question Dropdown + Button */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-end",
-            flex: 1,
-            gap: "10px",
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+          {/* Subject Dropdown */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <label
-              htmlFor="questionSelect"
+              htmlFor="subjectSelect"
               style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
             >
-              Question:
+              Subject:
             </label>
             <select
-              id="questionSelect"
+              id="subjectSelect"
               style={{
                 padding: "6px 10px",
                 borderRadius: 6,
                 border: "1px solid #ccc",
-                width: "100%",
+                minWidth: 160,
               }}
-              value={question_text}
-              onChange={(e) => setQuestionText(e.target.value)}
+              value={subject}
+              onChange={(e) => {
+                const selectedSubject = e.target.value;
+                setSubject(selectedSubject);
+                setMarks(""); // reset marks when subject changes
+                setQuestionText(""); // reset question
+              }}
             >
-              <option value="">
-                -- Select a valid question mark to see the list of questions --
-              </option>
-              {questionsByMarks[marks]?.map((q, idx) => (
-                <option key={idx} value={q}>
-                  {q}
-                </option>
-              ))}
+              <option value="">-- Select Subject --</option>
+              <option value="sociology">Sociology</option>
+              <option value="economics">Economics</option>
+              <option value="history">History</option>
+              <option value="political_science">Political Science</option>
+              <option value="literature">Literature</option>
             </select>
           </div>
+          
+          {/* Marks Input (now dynamic based on subject) */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label
+              htmlFor="marksInput"
+              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
+            >
+              Marks:
+            </label>
+            <select
+              id="marksInput"
+              value={marks}
+              onChange={(e) => {
+                const selectedMarks = e.target.value;
+                setMarks(selectedMarks);
+                setQuestionText(""); // reset question when marks change
+              }}
+              style={{
+                padding: "6px 10px",
+                borderRadius: 6,
+                border: "1px solid #ccc",
+                minWidth: 100,
+              }}
+            >
+              <option value="">-- Select Marks --</option>
+              {subject &&
+                Object.keys(questionsData[subject] || {}).map((markValue) => (
+                  <option key={markValue} value={markValue}>
+                    {markValue}
+                  </option>
+                ))}
+            </select>
+          </div>
+          
+          {/* Question Dropdown */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-end",
+              flex: 1,
+              gap: "10px",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+              <label
+                htmlFor="questionSelect"
+                style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
+              >
+                Question:
+              </label>
+              <select
+                id="questionSelect"
+                style={{
+                  padding: "6px 10px",
+                  borderRadius: 6,
+                  border: "1px solid #ccc",
+                  width: "100%",
+                }}
+                value={question_text}
+                onChange={(e) => setQuestionText(e.target.value)}
+              >
+                <option value="">
+                  -- Select a valid subject and marks to see the list of questions --
+                </option>
+                {subject &&
+                  marks &&
+                  questionsData[subject]?.[marks]?.map((q, idx) => (
+                    <option key={idx} value={q}>
+                      {q}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+
       
           {/* Start Conversation Button */}
           <button
