@@ -244,119 +244,155 @@ const Ai_Learning = ({ doctorData }) => {
       <div
         style={{
           display: "flex",
-          flexWrap: "wrap",     // ✅ allow items to move to next line if needed
+          flexWrap: "wrap", 
           alignItems: "center",
           gap: 20,
           marginBottom: "12px",
         }}
       >
-          {/* Subject Dropdown */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
+        {/* Subject Dropdown */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label
+            htmlFor="subjectSelect"
+            style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
+          >
+            Subject:
+          </label>
+          <select
+            id="subjectSelect"
+            style={{
+              padding: "6px 10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
+              minWidth: 160,
+            }}
+            value={subject}
+            onChange={(e) => {
+              const selectedSubject = e.target.value;
+              setSubject(selectedSubject);
+              setMarks(""); // reset marks when subject changes
+              setQuestionText(""); // reset question
+            }}
+          >
+            <option value="">-- Select Subject --</option>
+            <option value="sociology">Sociology</option>
+            <option value="economics">Economics</option>
+            <option value="history">History</option>
+            <option value="political_science">Political Science</option>
+            <option value="literature">Literature</option>
+          </select>
+        </div>
+      
+        {/* Marks Input */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label
+            htmlFor="marksInput"
+            style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
+          >
+            Marks:
+          </label>
+          <select
+            id="marksInput"
+            value={marks}
+            onChange={(e) => {
+              const selectedMarks = e.target.value;
+              setMarks(selectedMarks);
+              setQuestionText(""); // reset question when marks change
+            }}
+            style={{
+              padding: "6px 10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
+              minWidth: 100,
+            }}
+          >
+            <option value="">-- Select Marks --</option>
+            {subject &&
+              Object.keys(questionsData[subject] || {}).map((markValue) => (
+                <option key={markValue} value={markValue}>
+                  {markValue}
+                </option>
+              ))}
+          </select>
+        </div>
+      
+        {/* Question Dropdown */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            flex: 1,
+            gap: "10px",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
             <label
-              htmlFor="subjectSelect"
+              htmlFor="questionSelect"
               style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
             >
-              Subject:
+              Question:
             </label>
             <select
-              id="subjectSelect"
+              id="questionSelect"
               style={{
                 padding: "6px 10px",
                 borderRadius: 6,
                 border: "1px solid #ccc",
-                minWidth: 160,
+                width: "100%",
               }}
-              value={subject}
-              onChange={(e) => {
-                const selectedSubject = e.target.value;
-                setSubject(selectedSubject);
-                setMarks(""); // reset marks when subject changes
-                setQuestionText(""); // reset question
-              }}
+              value={question_text}
+              onChange={(e) => setQuestionText(e.target.value)}
             >
-              <option value="">-- Select Subject --</option>
-              <option value="sociology">Sociology</option>
-              <option value="economics">Economics</option>
-              <option value="history">History</option>
-              <option value="political_science">Political Science</option>
-              <option value="literature">Literature</option>
-            </select>
-          </div>
-          
-          {/* Marks Input (now dynamic based on subject) */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label
-              htmlFor="marksInput"
-              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-            >
-              Marks:
-            </label>
-            <select
-              id="marksInput"
-              value={marks}
-              onChange={(e) => {
-                const selectedMarks = e.target.value;
-                setMarks(selectedMarks);
-                setQuestionText(""); // reset question when marks change
-              }}
-              style={{
-                padding: "6px 10px",
-                borderRadius: 6,
-                border: "1px solid #ccc",
-                minWidth: 100,
-              }}
-            >
-              <option value="">-- Select Marks --</option>
+              <option value="">
+                -- Select a valid subject and marks to see the list of questions --
+              </option>
               {subject &&
-                Object.keys(questionsData[subject] || {}).map((markValue) => (
-                  <option key={markValue} value={markValue}>
-                    {markValue}
+                marks &&
+                questionsData[subject]?.[marks]?.map((q, idx) => (
+                  <option key={idx} value={q}>
+                    {q}
                   </option>
                 ))}
             </select>
           </div>
-          
-          {/* Question Dropdown */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "flex-end",
-              flex: 1,
-              gap: "10px",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-              <label
-                htmlFor="questionSelect"
-                style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-              >
-                Question:
-              </label>
-              <select
-                id="questionSelect"
-                style={{
-                  padding: "6px 10px",
-                  borderRadius: 6,
-                  border: "1px solid #ccc",
-                  width: "100%",
-                }}
-                value={question_text}
-                onChange={(e) => setQuestionText(e.target.value)}
-              >
-                <option value="">
-                  -- Select a valid subject and marks to see the list of questions --
-                </option>
-                {subject &&
-                  marks &&
-                  questionsData[subject]?.[marks]?.map((q, idx) => (
-                    <option key={idx} value={q}>
-                      {q}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          </div>
+        </div>
+      
+        {/* Buttons */}
+        <button
+          onClick={handleStartConversation}
+          disabled={isStartingConversation}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 6,
+            border: "none",
+            background: isStartingConversation ? "#007bff" : "#4CAF50",
+            color: "white",
+            fontWeight: "600",
+            cursor: isStartingConversation ? "not-allowed" : "pointer",
+            height: "fit-content",
+            marginBottom: "2px",
+          }}
+        >
+          {isStartingConversation ? "Starting Conversation..." : "Start Conversation"}
+        </button>
+        <button
+          onClick={handleRefresh}
+          style={{
+            padding: "8px 16px",
+            borderRadius: 6,
+            border: "none",
+            background: "#2196F3",
+            color: "white",
+            fontWeight: "600",
+            cursor: "pointer",
+            height: "fit-content",
+            marginBottom: "2px",
+          }}
+        >
+          Refresh
+        </button>
+      </div>
 
       
           {/* Start Conversation Button */}
