@@ -392,7 +392,7 @@ const Ai_Learning = ({ doctorData }) => {
         >
           Refresh
         </button>
-      </div>
+      
 
       
           {/* Start Conversation Button */}
