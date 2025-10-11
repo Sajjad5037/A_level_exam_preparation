@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 const AiAudioLearning = ({ doctorData }) => {
   const [subject, setSubject] = useState("");
   const [marks, setMarks] = useState("");
-  const [questionText, setQuestionText] = useState("");
+  const [question_text, setQuestionText] = useState("");
   const [sessionId, setSessionId] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
   const [chatLog, setChatLog] = useState([]);
