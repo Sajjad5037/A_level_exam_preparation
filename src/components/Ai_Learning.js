@@ -229,103 +229,93 @@ const Ai_Learning = ({ doctorData }) => {
 
 
   return (
-    <div
-      style={{
-        padding: "20px 0",          // ✅ vertical only, no left/right padding
-        fontFamily: "Arial, sans-serif",
-        width: "100%",              // ✅ take full width
-        maxWidth: "100%",           // ✅ ignore previous 1200px limit
-        margin: 0,                  // ✅ no auto-centering
-        boxSizing: "border-box",
-      }}
-    >
-
-      {/* ----------------- Your Given Section (kept intact) ----------------- */}
       <div
         style={{
-          display: "flex",
-          flexWrap: "wrap", 
-          alignItems: "center",
-          gap: 20,
-          marginBottom: "12px",
+          padding: "20px 0",
+          fontFamily: "Arial, sans-serif",
+          width: "100%",
+          maxWidth: "100%",
+          margin: 0,
+          boxSizing: "border-box",
         }}
       >
-        {/* Subject Dropdown */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label
-            htmlFor="subjectSelect"
-            style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-          >
-            Subject:
-          </label>
-          <select
-            id="subjectSelect"
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              minWidth: 160,
-            }}
-            value={subject}
-            onChange={(e) => {
-              const selectedSubject = e.target.value;
-              setSubject(selectedSubject);
-              setMarks(""); // reset marks when subject changes
-              setQuestionText(""); // reset question
-            }}
-          >
-            <option value="">-- Select Subject --</option>
-            <option value="sociology">Sociology</option>
-            <option value="economics">Economics</option>
-            <option value="history">History</option>
-            <option value="political_science">Political Science</option>
-            <option value="literature">Literature</option>
-          </select>
-        </div>
-      
-        {/* Marks Input */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label
-            htmlFor="marksInput"
-            style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-          >
-            Marks:
-          </label>
-          <select
-            id="marksInput"
-            value={marks}
-            onChange={(e) => {
-              const selectedMarks = e.target.value;
-              setMarks(selectedMarks);
-              setQuestionText(""); // reset question when marks change
-            }}
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              minWidth: 100,
-            }}
-          >
-            <option value="">-- Select Marks --</option>
-            {subject &&
-              Object.keys(questionsData[subject] || {}).map((markValue) => (
-                <option key={markValue} value={markValue}>
-                  {markValue}
-                </option>
-              ))}
-          </select>
-        </div>
-      
-        {/* Question Dropdown */}
+        {/* ----------------- Dropdowns & Buttons Section ----------------- */}
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
-            alignItems: "flex-end",
-            flex: 1,
-            gap: "10px",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: 20,
+            marginBottom: "12px",
           }}
         >
+          {/* Subject Dropdown */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label
+              htmlFor="subjectSelect"
+              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
+            >
+              Subject:
+            </label>
+            <select
+              id="subjectSelect"
+              style={{
+                padding: "6px 10px",
+                borderRadius: 6,
+                border: "1px solid #ccc",
+                minWidth: 160,
+              }}
+              value={subject}
+              onChange={(e) => {
+                const selectedSubject = e.target.value;
+                setSubject(selectedSubject);
+                setMarks(""); // reset marks
+                setQuestionText(""); // reset question
+              }}
+            >
+              <option value="">-- Select Subject --</option>
+              <option value="sociology">Sociology</option>
+              <option value="economics">Economics</option>
+              <option value="history">History</option>
+              <option value="political_science">Political Science</option>
+              <option value="literature">Literature</option>
+            </select>
+          </div>
+    
+          {/* Marks Dropdown */}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <label
+              htmlFor="marksInput"
+              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
+            >
+              Marks:
+            </label>
+            <select
+              id="marksInput"
+              value={marks}
+              onChange={(e) => {
+                const selectedMarks = e.target.value;
+                setMarks(selectedMarks);
+                setQuestionText(""); // reset question
+              }}
+              style={{
+                padding: "6px 10px",
+                borderRadius: 6,
+                border: "1px solid #ccc",
+                minWidth: 100,
+              }}
+            >
+              <option value="">-- Select Marks --</option>
+              {subject &&
+                Object.keys(questionsData[subject] || {}).map((markValue) => (
+                  <option key={markValue} value={markValue}>
+                    {markValue}
+                  </option>
+                ))}
+            </select>
+          </div>
+    
+          {/* Question Dropdown */}
           <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
             <label
               htmlFor="questionSelect"
@@ -356,169 +346,126 @@ const Ai_Learning = ({ doctorData }) => {
                 ))}
             </select>
           </div>
-        </div>
-      
-        {/* Buttons */}
-        <button
-          onClick={handleStartConversation}
-          disabled={isStartingConversation}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 6,
-            border: "none",
-            background: isStartingConversation ? "#007bff" : "#4CAF50",
-            color: "white",
-            fontWeight: "600",
-            cursor: isStartingConversation ? "not-allowed" : "pointer",
-            height: "fit-content",
-            marginBottom: "2px",
-          }}
-        >
-          {isStartingConversation ? "Starting Conversation..." : "Start Conversation"}
-        </button>
-        <button
-          onClick={handleRefresh}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 6,
-            border: "none",
-            background: "#2196F3",
-            color: "white",
-            fontWeight: "600",
-            cursor: "pointer",
-            height: "fit-content",
-            marginBottom: "2px",
-          }}
-        >
-          Refresh
-        </button>
-      
-
-      
-          {/* Start Conversation Button */}
-          <button
-            onClick={handleStartConversation}
-            disabled={isStartingConversation} // new state to track processing
-            style={{
-              padding: "8px 16px",
-              borderRadius: 6,
-              border: "none",
-              background: isStartingConversation ? "#007bff" : "#4CAF50", // optional color change
-              color: "white",
-              fontWeight: "600",
-              cursor: isStartingConversation ? "not-allowed" : "pointer",
-              height: "fit-content",
-              marginBottom: "2px",
-            }}
-          >
-            {isStartingConversation ? "Starting Conversation..." : "Start Conversation"}
-          </button>
-          <button
-            onClick={handleRefresh}
-            style={{
-              padding: "8px 16px",
-              borderRadius: 6,
-              border: "none",
-              background: "#2196F3", // blue color for refresh
-              color: "white",
-              fontWeight: "600",
-              cursor: "pointer",
-              height: "fit-content",
-              marginBottom: "2px",
-            }}
-          >
-            Refresh
-          </button>
-        </div>
-      </div>
-
-      {/* ----------------- Chatbot Section ----------------- */}
-      <div
-        style={{
-          height: "70vh",         // use 70% of viewport height instead of fixed px
-          maxHeight: "600px",     // optional: don’t let it grow too tall
-          minHeight: "300px",     // optional: keep it usable on small screens
-          overflowY: "auto",
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-          padding: "12px",
-        }}
-      >
-
-        {/* Chat messages */}
-        <div style={{ flex: 1, overflowY: "auto", marginBottom: 10 }}>
-          {chatLog.map((msg, idx) => (
-            <div
-              key={idx}
+    
+          {/* Buttons */}
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <button
+              onClick={handleStartConversation}
+              disabled={isStartingConversation}
               style={{
-                textAlign: msg.sender === "user" ? "right" : "left",
-                margin: "5px 0",
+                padding: "8px 16px",
+                borderRadius: 6,
+                border: "none",
+                background: isStartingConversation ? "#007bff" : "#4CAF50",
+                color: "white",
+                fontWeight: "600",
+                cursor: isStartingConversation ? "not-allowed" : "pointer",
               }}
             >
+              {isStartingConversation ? "Starting Conversation..." : "Start Conversation"}
+            </button>
+            <button
+              onClick={handleRefresh}
+              style={{
+                padding: "8px 16px",
+                borderRadius: 6,
+                border: "none",
+                background: "#2196F3",
+                color: "white",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              Refresh
+            </button>
+          </div>
+        </div>
+    
+        {/* ----------------- Chatbot Section ----------------- */}
+        <div
+          style={{
+            height: "70vh",
+            maxHeight: "600px",
+            minHeight: "300px",
+            overflowY: "auto",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            padding: "12px",
+          }}
+        >
+          {/* Chat messages */}
+          <div style={{ flex: 1, overflowY: "auto", marginBottom: 10 }}>
+            {chatLog.map((msg, idx) => (
               <div
+                key={idx}
                 style={{
-                  display: "inline-block",
-                  padding: "6px 10px",
-                  borderRadius: 12,
-                  background: msg.sender === "user" ? "#007bff" : "#f1f1f1",
-                  color: msg.sender === "user" ? "white" : "black",
+                  textAlign: msg.sender === "user" ? "right" : "left",
+                  margin: "5px 0",
                 }}
-                dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }}
-              />
-            </div>
-          ))}
+              >
+                <div
+                  style={{
+                    display: "inline-block",
+                    padding: "6px 10px",
+                    borderRadius: 12,
+                    background: msg.sender === "user" ? "#007bff" : "#f1f1f1",
+                    color: msg.sender === "user" ? "white" : "black",
+                  }}
+                  dangerouslySetInnerHTML={{ __html: marked.parse(msg.text) }}
+                />
+              </div>
+            ))}
+          </div>
+    
+          {/* Input box */}
+          <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
+            <textarea
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="Type your message..."
+              rows={1}
+              style={{
+                flex: 1,
+                padding: "8px 10px",
+                borderRadius: 6,
+                border: "1px solid #ccc",
+                resize: "none",
+                overflow: "hidden",
+                fontFamily: "inherit",
+                fontSize: "14px",
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSend();
+                }
+              }}
+              onInput={(e) => {
+                e.target.style.height = "auto";
+                e.target.style.height = e.target.scrollHeight + "px";
+              }}
+              onPaste={(e) => e.preventDefault()}
+              onCopy={(e) => e.preventDefault()}
+            />
+            <button
+              onClick={handleSend}
+              disabled={isSending}
+              style={{
+                padding: "8px 16px",
+                borderRadius: 6,
+                border: "none",
+                background: "#007bff",
+                color: "white",
+                fontWeight: "600",
+                cursor: isSending ? "not-allowed" : "pointer",
+              }}
+            >
+              {isSending ? "Sending..." : "Send"}
+            </button>
+          </div>
         </div>
-
-        {/* Input box */}
-        <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
-          <textarea
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            placeholder="Type your message..."
-            rows={1}
-            style={{
-              flex: 1,
-              padding: "8px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              resize: "none",        // user cannot manually resize
-              overflow: "hidden",    // hide scrollbars
-              fontFamily: "inherit",
-              fontSize: "14px",
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault(); // prevent newline
-                handleSend();
-              }
-            }}
-            onInput={(e) => {
-              e.target.style.height = "auto";
-              e.target.style.height = e.target.scrollHeight + "px"; // auto-expand
-            }}
-            onPaste={(e) => e.preventDefault()}  // prevent pasting
-            onCopy={(e) => e.preventDefault()}   // prevent copying
-          />
-          <button
-            onClick={handleSend}
-            disabled={isSending} // new state to track sending
-            style={{
-              padding: "8px 16px",
-              borderRadius: 6,
-              border: "none",
-              background: isSending ? "#007bff" : "#007bff", // color can stay same or change slightly
-              color: "white",
-              fontWeight: "600",
-              cursor: isSending ? "not-allowed" : "pointer",
-            }}
-          >
-            {isSending ? "Sending..." : "Send"}
-          </button>
-        </div>
-
       </div>
-    </div>
-  );
+    );
 };
 
 export default Ai_Learning;
