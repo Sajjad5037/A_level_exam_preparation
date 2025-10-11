@@ -569,39 +569,7 @@ Student Response Length: ${result.student_response.length} characters`);
         })}
       </div>
 
-      {/* Buttons Row */}
-      <div style={{ display: "flex", gap: 10 }}>
-        <button
-          onClick={handleStartConversation}
-          disabled={isStartingConversation}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 6,
-            border: "none",
-            background: isStartingConversation ? "#007bff" : "#4CAF50",
-            color: "#fff",
-            fontWeight: 600,
-            cursor: isStartingConversation ? "not-allowed" : "pointer",
-          }}
-        >
-          {isStartingConversation ? "Starting Conversation..." : "Start Conversation"}
-        </button>
-
-        <button
-          onClick={handleRefresh}
-          style={{
-            padding: "8px 16px",
-            borderRadius: 6,
-            border: "none",
-            background: "#2196F3",
-            color: "#fff",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          Refresh
-        </button>
-      </div>
+      
     </div>
   </div>
 );
