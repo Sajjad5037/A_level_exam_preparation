@@ -404,19 +404,20 @@ Student Response Length: ${result.student_response.length} characters`);
     </div>
 
     {/* Right Panel */}
-    <div
-      style={{
-        flex: 1,
-        padding: 24,
-        backgroundColor: "#fff",
-        borderRadius: 16,
-        boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-        height: 540,
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
-      }}
-    >
+   <div
+    style={{
+      flex: 1,
+      padding: 24,
+      background: "linear-gradient(180deg, #F1F5F9, #E2E8F0)", // soft gradient
+      borderRadius: 16,
+      boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
+      height: 540,
+      display: "flex",
+      flexDirection: "column",
+      color: "#1E293B", // readable dark text
+      boxSizing: "border-box",
+    }}
+  >
       {/* Dropdown Row */}
       <div
         style={{
@@ -514,10 +515,11 @@ Student Response Length: ${result.student_response.length} characters`);
         style={{
           flex: 1,
           overflowY: "auto",
-          border: "1px solid #e5e7eb",
+          border: "1px solid #94A3B8",
           borderRadius: 12,
           padding: 16,
-          backgroundColor: "#fafafa",
+          backgroundColor: "#E2E8F0", // medium gray-blue
+          color: "#0F172A",
         }}
       >
         {chatLog.map((msg, index) => (
