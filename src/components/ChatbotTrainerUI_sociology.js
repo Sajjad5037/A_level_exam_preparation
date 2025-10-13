@@ -280,35 +280,29 @@ Student Response Length: ${result.student_response.length} characters`);
       display: "flex",
       justifyContent: "space-between",
       alignItems: "flex-start",
-      padding: "30px",
-      fontFamily: "'Inter', Arial, sans-serif",
-      gap: 24,
+      padding: "20px 0", // vertical only
+      fontFamily: "Arial, sans-serif",
+      gap: 20,
       width: "100%",
-      minHeight: "100vh",
       boxSizing: "border-box",
-      background: "linear-gradient(135deg, #eef2ff, #e0e7ff, #c7d2fe)",
-      color: "#1e293b", // slate-900
     }}
   >
     {/* Left Panel */}
     <div
       style={{
-        width: 320,
-        padding: 24,
-        background: "linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)", // soft blue-gray gradient
-        borderRadius: 16,
-        boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
-        height: 540,
+        width: 300,
+        padding: 20,
+        backgroundColor: "#f9f9f9",
+        borderRadius: 8,
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        height: 525,
         display: "flex",
         flexDirection: "column",
-        transition: "transform 0.2s ease, box-shadow 0.2s ease",
-        color: "#1E293B",             // dark slate text for readability
-        fontFamily: "Inter, Arial, sans-serif",
+        boxSizing: "border-box",
       }}
     >
-
-      <h3 style={{ textAlign: "center", color: "#1e293b", marginBottom: 20 }}>
-        📤 Upload Image of Your Response
+      <h3 style={{ textAlign: "center", color: "#333", marginBottom: 20 }}>
+        Upload Image of your response
       </h3>
 
       <select
@@ -321,12 +315,10 @@ Student Response Length: ${result.student_response.length} characters`);
           height: 300,
           padding: 10,
           marginBottom: 15,
-          borderRadius: 8,
-          border: "1px solid #d1d5db",
-          backgroundColor: "#f9fafb",
-          fontSize: 14,
-          color: "#1e293b",
-          outline: "none",
+          borderRadius: 5,
+          border: "1px solid #ccc",
+          flexShrink: 0,
+          boxSizing: "border-box",
         }}
       >
         {images.map((file, index) => (
@@ -348,14 +340,12 @@ Student Response Length: ${result.student_response.length} characters`);
           htmlFor="fileInput"
           style={{
             padding: "10px 20px",
-            background: "linear-gradient(90deg, #6366f1, #3b82f6)",
+            backgroundColor: "#4CAF50",
             color: "#fff",
-            borderRadius: 8,
+            borderRadius: 5,
             cursor: "pointer",
             textAlign: "center",
             userSelect: "none",
-            fontWeight: 600,
-            boxShadow: "0 2px 6px rgba(99,102,241,0.3)",
           }}
         >
           Upload Image
@@ -373,13 +363,11 @@ Student Response Length: ${result.student_response.length} characters`);
           onClick={handleRemoveSelected}
           style={{
             padding: 10,
-            borderRadius: 8,
+            borderRadius: 5,
             color: "#fff",
-            backgroundColor: "#ef4444",
+            backgroundColor: "#FF0000",
             cursor: "pointer",
             border: "none",
-            fontWeight: 600,
-            boxShadow: "0 2px 6px rgba(239,68,68,0.3)",
           }}
         >
           Remove
@@ -390,57 +378,57 @@ Student Response Length: ${result.student_response.length} characters`);
           disabled={isProcessing}
           style={{
             padding: 10,
-            borderRadius: 8,
+            borderRadius: 5,
             color: "#fff",
-            background: isProcessing
-              ? "linear-gradient(90deg, #93c5fd, #60a5fa)"
-              : "linear-gradient(90deg, #6366f1, #3b82f6)",
+            backgroundColor: isProcessing ? "#007bff" : "#4CAF50",
             cursor: isProcessing ? "not-allowed" : "pointer",
             border: "none",
-            fontWeight: 600,
-            boxShadow: "0 2px 6px rgba(99,102,241,0.3)",
           }}
         >
-          {isProcessing ? "Processing..." : "Send Essay for Checking"}
+          {isProcessing ? "Processing images..." : "Send your essay for checking..."}
         </button>
       </div>
     </div>
 
     {/* Right Panel */}
-   <div
-    style={{
-      flex: 1,
-      padding: 24,
-      background: "linear-gradient(180deg, #F1F5F9, #E2E8F0)", // soft gradient
-      borderRadius: 16,
-      boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
-      height: 540,
-      display: "flex",
-      flexDirection: "column",
-      color: "#1E293B", // readable dark text
-      boxSizing: "border-box",
-    }}
-  >
-      {/* Dropdown Row */}
+    <div
+      style={{
+        flex: 1,
+        padding: 20,
+        backgroundColor: "#f9f9f9",
+        borderRadius: 8,
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        height: 525,
+        display: "flex",
+        flexDirection: "column",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Subject & Marks Row */}
       <div
         style={{
           display: "flex",
           flexWrap: "wrap",
           alignItems: "center",
           gap: 20,
-          marginBottom: 16,
+          marginBottom: "12px",
         }}
       >
+        {/* Subject Dropdown */}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ fontWeight: 600, marginBottom: 4 }}>Subject</label>
+          <label
+            htmlFor="subjectSelect"
+            style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}
+          >
+            Subject:
+          </label>
           <select
+            id="subjectSelect"
             style={{
-              padding: "8px 10px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
+              padding: "6px 10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
               minWidth: 160,
-              backgroundColor: "#f9fafb",
-              fontSize: 14,
             }}
             value={subject}
             onChange={(e) => {
@@ -458,21 +446,26 @@ Student Response Length: ${result.student_response.length} characters`);
           </select>
         </div>
 
+        {/* Marks Dropdown */}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label style={{ fontWeight: 600, marginBottom: 4 }}>Marks</label>
+          <label
+            htmlFor="marksInput"
+            style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}
+          >
+            Marks:
+          </label>
           <select
+            id="marksInput"
             value={marks}
             onChange={(e) => {
               setMarks(e.target.value);
               setQuestionText("");
             }}
             style={{
-              padding: "8px 10px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
+              padding: "6px 10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
               minWidth: 100,
-              backgroundColor: "#f9fafb",
-              fontSize: 14,
             }}
           >
             <option value="">-- Select Marks --</option>
@@ -485,22 +478,27 @@ Student Response Length: ${result.student_response.length} characters`);
           </select>
         </div>
 
+        {/* Question Dropdown */}
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          <label style={{ fontWeight: 600, marginBottom: 4 }}>Question</label>
+          <label
+            htmlFor="questionSelect"
+            style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}
+          >
+            Question:
+          </label>
           <select
+            id="questionSelect"
             style={{
-              padding: "8px 10px",
-              borderRadius: 8,
-              border: "1px solid #d1d5db",
-              backgroundColor: "#f9fafb",
+              padding: "6px 10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
               width: "100%",
-              fontSize: 14,
             }}
             value={question_text}
             onChange={(e) => setQuestionText(e.target.value)}
           >
             <option value="">
-              -- Select valid subject and marks to view questions --
+              -- Select a valid subject and marks to see the list of questions --
             </option>
             {subject &&
               marks &&
@@ -513,46 +511,68 @@ Student Response Length: ${result.student_response.length} characters`);
         </div>
       </div>
 
-      {/* Chat Section */}
+      {/* Chat / Content Box */}
       <div
         style={{
-          flex: 1,
+          height: 400,
           overflowY: "auto",
-          border: "1px solid #94A3B8",
-          borderRadius: 12,
-          padding: 16,
-          backgroundColor: "#E2E8F0", // medium gray-blue
-          color: "#0F172A",
+          marginBottom: 15,
+          border: "1px solid #ddd",
+          padding: 15,
+          borderRadius: 8,
+          backgroundColor: "#fff",
+          flexShrink: 0,
+          boxSizing: "border-box",
         }}
       >
-        {chatLog.map((msg, index) => (
-          <div
-            key={index}
-            style={{
-              marginBottom: 10,
-              textAlign: msg.type === "user" ? "right" : "left",
-            }}
-          >
+        {chatLog.map((msg, index) => {
+          let cleanedMessage = msg.message;
+          if (msg.type === "bot" && typeof msg.message === "string") {
+            cleanedMessage = msg.message
+              .replace(/([^\.\?\!])\n/g, "$1 ")
+              .replace(/\n/g, "<br>");
+          }
+
+          return (
             <div
+              key={index}
               style={{
-                display: "inline-block",
-                backgroundColor: msg.type === "user" ? "#6366f1" : "#f1f5f9",
-                color: msg.type === "user" ? "#fff" : "#111827",
-                padding: 10,
-                borderRadius: 10,
-                maxWidth: "75%",
-                lineHeight: 1.5,
+                marginBottom: 10,
+                textAlign: msg.type === "user" ? "right" : "left",
               }}
             >
-              {msg.message}
+              <div
+                style={{
+                  display: "inline-block",
+                  backgroundColor: msg.type === "user" ? "#007bff" : "#f1f1f1",
+                  color: msg.type === "user" ? "#fff" : "#000",
+                  padding: 10,
+                  borderRadius: 10,
+                  maxWidth: msg.type === "user" ? "70%" : "90%",
+                  wordWrap: "break-word",
+                  lineHeight: 1.6,
+                }}
+                dangerouslySetInnerHTML={
+                  msg.type === "bot" && typeof cleanedMessage === "string"
+                    ? { __html: marked.parse(cleanedMessage) }
+                    : undefined
+                }
+              >
+                {msg.type === "bot" && typeof cleanedMessage !== "string"
+                  ? cleanedMessage
+                  : msg.type === "user"
+                  ? cleanedMessage
+                  : null}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
+      
     </div>
   </div>
 );
-
 
 };
 
