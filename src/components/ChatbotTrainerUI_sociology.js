@@ -275,12 +275,37 @@ Student Response Length: ${result.student_response.length} characters`);
   };
 
  return (
-  <div className="flex flex-col lg:flex-row justify-between gap-6 p-8 bg-gray-50 rounded-2xl shadow-md w-full box-border font-inter">
-    
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      padding: "30px",
+      fontFamily: "'Inter', Arial, sans-serif",
+      gap: 24,
+      width: "100%",
+      minHeight: "100vh",
+      boxSizing: "border-box",
+      background: "linear-gradient(135deg, #eef2ff, #e0e7ff, #c7d2fe)",
+      color: "#1e293b", // slate-900
+    }}
+  >
     {/* Left Panel */}
-    <div className="w-full lg:w-80 bg-white rounded-xl shadow-sm p-6 flex flex-col h-[525px]">
-      <h3 className="text-center text-gray-800 text-lg font-semibold mb-5">
-        Upload Image of Your Response
+    <div
+      style={{
+        width: 320,
+        padding: 24,
+        backgroundColor: "#fff",
+        borderRadius: 16,
+        boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
+        height: 540,
+        display: "flex",
+        flexDirection: "column",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+      }}
+    >
+      <h3 style={{ textAlign: "center", color: "#1e293b", marginBottom: 20 }}>
+        📤 Upload Image of Your Response
       </h3>
 
       <select
@@ -288,7 +313,18 @@ Student Response Length: ${result.student_response.length} characters`);
         size={10}
         value={selectedImages.map((img) => img.name)}
         onChange={handleImageSelect}
-        className="w-full h-[300px] p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        style={{
+          width: "100%",
+          height: 300,
+          padding: 10,
+          marginBottom: 15,
+          borderRadius: 8,
+          border: "1px solid #d1d5db",
+          backgroundColor: "#f9fafb",
+          fontSize: 14,
+          color: "#1e293b",
+          outline: "none",
+        }}
       >
         {images.map((file, index) => (
           <option key={index} value={file.name}>
@@ -297,10 +333,27 @@ Student Response Length: ${result.student_response.length} characters`);
         ))}
       </select>
 
-      <div className="flex flex-col gap-3 mt-auto">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
+          marginTop: "auto",
+        }}
+      >
         <label
           htmlFor="fileInput"
-          className="cursor-pointer text-center bg-emerald-600 text-white py-2.5 rounded-lg font-medium hover:bg-emerald-700 transition"
+          style={{
+            padding: "10px 20px",
+            background: "linear-gradient(90deg, #6366f1, #3b82f6)",
+            color: "#fff",
+            borderRadius: 8,
+            cursor: "pointer",
+            textAlign: "center",
+            userSelect: "none",
+            fontWeight: 600,
+            boxShadow: "0 2px 6px rgba(99,102,241,0.3)",
+          }}
         >
           Upload Image
         </label>
@@ -310,12 +363,21 @@ Student Response Length: ${result.student_response.length} characters`);
           accept="image/*"
           multiple
           onChange={handleFileChange}
-          className="hidden"
+          style={{ display: "none" }}
         />
 
         <button
           onClick={handleRemoveSelected}
-          className="py-2.5 rounded-lg text-white bg-red-500 hover:bg-red-600 transition font-medium"
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            color: "#fff",
+            backgroundColor: "#ef4444",
+            cursor: "pointer",
+            border: "none",
+            fontWeight: 600,
+            boxShadow: "0 2px 6px rgba(239,68,68,0.3)",
+          }}
         >
           Remove
         </button>
@@ -323,32 +385,59 @@ Student Response Length: ${result.student_response.length} characters`);
         <button
           onClick={handleTrain}
           disabled={isProcessing}
-          className={`py-2.5 rounded-lg font-medium text-white transition ${
-            isProcessing
-              ? "bg-blue-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          style={{
+            padding: 10,
+            borderRadius: 8,
+            color: "#fff",
+            background: isProcessing
+              ? "linear-gradient(90deg, #93c5fd, #60a5fa)"
+              : "linear-gradient(90deg, #6366f1, #3b82f6)",
+            cursor: isProcessing ? "not-allowed" : "pointer",
+            border: "none",
+            fontWeight: 600,
+            boxShadow: "0 2px 6px rgba(99,102,241,0.3)",
+          }}
         >
-          {isProcessing ? "Processing images..." : "Send your essay for checking..."}
+          {isProcessing ? "Processing..." : "Send Essay for Checking"}
         </button>
       </div>
     </div>
 
     {/* Right Panel */}
-    <div className="flex-1 bg-white rounded-xl shadow-sm p-6 flex flex-col h-[525px]">
-      {/* Subject & Marks Row */}
-      <div className="flex flex-wrap items-center gap-5 mb-4">
-        {/* Subject */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="subjectSelect"
-            className="font-semibold text-gray-800 mb-1"
-          >
-            Subject:
-          </label>
+    <div
+      style={{
+        flex: 1,
+        padding: 24,
+        backgroundColor: "#fff",
+        borderRadius: 16,
+        boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
+        height: 540,
+        display: "flex",
+        flexDirection: "column",
+        boxSizing: "border-box",
+      }}
+    >
+      {/* Dropdown Row */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: 20,
+          marginBottom: 16,
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ fontWeight: 600, marginBottom: 4 }}>Subject</label>
           <select
-            id="subjectSelect"
-            className="p-2 rounded-md border border-gray-300 min-w-[160px] focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            style={{
+              padding: "8px 10px",
+              borderRadius: 8,
+              border: "1px solid #d1d5db",
+              minWidth: 160,
+              backgroundColor: "#f9fafb",
+              fontSize: 14,
+            }}
             value={subject}
             onChange={(e) => {
               setSubject(e.target.value);
@@ -365,22 +454,22 @@ Student Response Length: ${result.student_response.length} characters`);
           </select>
         </div>
 
-        {/* Marks */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="marksInput"
-            className="font-semibold text-gray-800 mb-1"
-          >
-            Marks:
-          </label>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label style={{ fontWeight: 600, marginBottom: 4 }}>Marks</label>
           <select
-            id="marksInput"
             value={marks}
             onChange={(e) => {
               setMarks(e.target.value);
               setQuestionText("");
             }}
-            className="p-2 rounded-md border border-gray-300 min-w-[100px] focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            style={{
+              padding: "8px 10px",
+              borderRadius: 8,
+              border: "1px solid #d1d5db",
+              minWidth: 100,
+              backgroundColor: "#f9fafb",
+              fontSize: 14,
+            }}
           >
             <option value="">-- Select Marks --</option>
             {subject &&
@@ -392,22 +481,22 @@ Student Response Length: ${result.student_response.length} characters`);
           </select>
         </div>
 
-        {/* Question */}
-        <div className="flex flex-col flex-1">
-          <label
-            htmlFor="questionSelect"
-            className="font-semibold text-gray-800 mb-1"
-          >
-            Question:
-          </label>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+          <label style={{ fontWeight: 600, marginBottom: 4 }}>Question</label>
           <select
-            id="questionSelect"
-            className="p-2 rounded-md border border-gray-300 w-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            style={{
+              padding: "8px 10px",
+              borderRadius: 8,
+              border: "1px solid #d1d5db",
+              backgroundColor: "#f9fafb",
+              width: "100%",
+              fontSize: 14,
+            }}
             value={question_text}
             onChange={(e) => setQuestionText(e.target.value)}
           >
             <option value="">
-              -- Select a valid subject and marks to see the list of questions --
+              -- Select valid subject and marks to view questions --
             </option>
             {subject &&
               marks &&
@@ -420,44 +509,40 @@ Student Response Length: ${result.student_response.length} characters`);
         </div>
       </div>
 
-      {/* Chat / Content Box */}
-      <div className="h-[400px] overflow-y-auto mb-4 border border-gray-200 p-4 rounded-lg bg-gray-50 flex flex-col gap-3">
-        {chatLog.map((msg, index) => {
-          let cleanedMessage = msg.message;
-          if (msg.type === "bot" && typeof msg.message === "string") {
-            cleanedMessage = msg.message
-              .replace(/([^\.\?\!])\n/g, "$1 ")
-              .replace(/\n/g, "<br>");
-          }
-
-          return (
+      {/* Chat Section */}
+      <div
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          border: "1px solid #e5e7eb",
+          borderRadius: 12,
+          padding: 16,
+          backgroundColor: "#fafafa",
+        }}
+      >
+        {chatLog.map((msg, index) => (
+          <div
+            key={index}
+            style={{
+              marginBottom: 10,
+              textAlign: msg.type === "user" ? "right" : "left",
+            }}
+          >
             <div
-              key={index}
-              className={`flex ${
-                msg.type === "user" ? "justify-end" : "justify-start"
-              }`}
+              style={{
+                display: "inline-block",
+                backgroundColor: msg.type === "user" ? "#6366f1" : "#f1f5f9",
+                color: msg.type === "user" ? "#fff" : "#111827",
+                padding: 10,
+                borderRadius: 10,
+                maxWidth: "75%",
+                lineHeight: 1.5,
+              }}
             >
-              <div
-                className={`max-w-[75%] p-3 rounded-lg text-sm leading-relaxed shadow-sm ${
-                  msg.type === "user"
-                    ? "bg-blue-600 text-white rounded-tr-none"
-                    : "bg-white text-gray-900 border border-gray-200 rounded-tl-none"
-                }`}
-                dangerouslySetInnerHTML={
-                  msg.type === "bot" && typeof cleanedMessage === "string"
-                    ? { __html: marked.parse(cleanedMessage) }
-                    : undefined
-                }
-              >
-                {msg.type === "bot" && typeof cleanedMessage !== "string"
-                  ? cleanedMessage
-                  : msg.type === "user"
-                  ? cleanedMessage
-                  : null}
-              </div>
+              {msg.message}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   </div>
