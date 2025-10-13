@@ -295,15 +295,18 @@ Student Response Length: ${result.student_response.length} characters`);
       style={{
         width: 320,
         padding: 24,
-        backgroundColor: "#fff",
+        background: "linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)", // soft blue-gray gradient
         borderRadius: 16,
-        boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
+        boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
         height: 540,
         display: "flex",
         flexDirection: "column",
         transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        color: "#1E293B",             // dark slate text for readability
+        fontFamily: "Inter, Arial, sans-serif",
       }}
     >
+
       <h3 style={{ textAlign: "center", color: "#1e293b", marginBottom: 20 }}>
         📤 Upload Image of Your Response
       </h3>
