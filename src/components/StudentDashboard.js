@@ -8,7 +8,6 @@ const StudentDashboard = ({ doctorData }) => {
   const [accessAllowed, setAccessAllowed] = useState(null); // null = loading
 
   useEffect(() => {
-    // Check user's access based on cost
     const checkAccess = async () => {
       try {
         const response = await axios.get(
@@ -25,7 +24,7 @@ const StudentDashboard = ({ doctorData }) => {
   }, [doctorData.name]);
 
   if (accessAllowed === null) {
-    return <div>Loading dashboard...</div>;
+    return <div style={{ padding: "50px", textAlign: "center" }}>Loading dashboard...</div>;
   }
 
   if (!accessAllowed) {
@@ -36,136 +35,135 @@ const StudentDashboard = ({ doctorData }) => {
     );
   }
 
-  const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    fontFamily: "Arial, sans-serif",
-    backgroundColor: "#f7f9fc",
-    margin: 0,
-    color: "#333",
-  },
-  header: {
-    padding: "8px 12px",          // smaller
-    backgroundColor: "#1e3a8a",
-    color: "#fff",
-    fontSize: "14px",             // smaller text
-    fontWeight: "bold",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-  },
-  navBar: {
-    display: "flex",
-    gap: "8px",                   // reduced again
-    backgroundColor: "#fff",
-    padding: "6px 10px",          // smaller
-    borderBottom: "1px solid #e5e7eb",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-    fontSize: "13px",             // slightly smaller
-  },
-  navLink: (isActive) => ({
-    textDecoration: "none",
-    color: isActive ? "#1e3a8a" : "#555",
-    fontWeight: isActive ? "bold" : "normal",
-    fontSize: "13px",             // reduced
-    padding: "3px 6px",           // tighter spacing
-    borderRadius: "3px",
-    backgroundColor: isActive ? "#e0e7ff" : "transparent",
-    transition: "all 0.3s ease",
-  }),
-  mainContent: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#fff",
-    padding: "8px",               // smaller
-    borderRadius: 0,
-    boxShadow: "none",
-    overflowY: "auto",
-    boxSizing: "border-box",
-  },
-};
+  const colors = {
+    primary: "#2563eb",
+    primaryLight: "#dbeafe",
+    accent: "#0ea5e9",
+    background: "#f9fafb",
+    surface: "#ffffff",
+    textPrimary: "#1f2937",
+    textSecondary: "#6b7280",
+    border: "#e5e7eb",
+  };
 
+  const styles = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh",
+      fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
+      backgroundColor: colors.background,
+      color: colors.textPrimary,
+    },
+
+    header: {
+      padding: "14px 24px",
+      backgroundColor: colors.primary,
+      color: "#fff",
+      fontSize: "16px",
+      fontWeight: "600",
+      letterSpacing: "0.5px",
+      boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+
+    headerTitle: {
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+    },
+
+    navBar: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "10px",
+      backgroundColor: colors.surface,
+      padding: "10px 16px",
+      borderBottom: `1px solid ${colors.border}`,
+      boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+      fontSize: "14px",
+      justifyContent: "center",
+    },
+
+    navLink: (isActive) => ({
+      textDecoration: "none",
+      color: isActive ? colors.primary : colors.textSecondary,
+      fontWeight: isActive ? "600" : "500",
+      padding: "8px 14px",
+      borderRadius: "6px",
+      backgroundColor: isActive ? colors.primaryLight : "transparent",
+      transition: "all 0.25s ease",
+      boxShadow: isActive ? "inset 0 0 4px rgba(0,0,0,0.05)" : "none",
+      cursor: "pointer",
+    }),
+
+    mainContent: {
+      flex: 1,
+      width: "100%",
+      backgroundColor: colors.surface,
+      padding: "24px",
+      borderRadius: "10px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+      overflowY: "auto",
+      margin: "20px auto",
+      maxWidth: "1100px",
+      boxSizing: "border-box",
+    },
+
+    footer: {
+      textAlign: "center",
+      padding: "10px",
+      fontSize: "13px",
+      color: colors.textSecondary,
+      borderTop: `1px solid ${colors.border}`,
+      backgroundColor: colors.surface,
+    },
+  };
 
   return (
     <div style={styles.container}>
       {/* Header */}
-      <header style={styles.header}>ANZWAY --- Learning That Works!!!</header>
+      <header style={styles.header}>
+        <div style={styles.headerTitle}>
+          <span role="img" aria-label="ai">🤖</span>
+          <span>AI Tutor — Helping You Prepare for Exams!</span>
+        </div>
+        {/* Placeholder for future logout/profile */}
+        <div style={{ fontSize: "13px", opacity: 0.9 }}>Welcome, {doctorData.name}</div>
+      </header>
 
       {/* NavBar */}
       <nav style={styles.navBar}>
-        <Link
-          to="/StudentDashboard/ai_evaluator"
-          style={styles.navLink(activeLink === "ai_evaluator")}
-          onClick={() => setActiveLink("ai_evaluator")}
-        >
-          📝 AI Evaluator
-        </Link>
-        <Link
-          to="/StudentDashboard/ai_learning"
-          style={styles.navLink(activeLink === "ai_learning")}
-          onClick={() => setActiveLink("ai_learning")}
-        >
-          AI Interactive Learning
-        </Link>
-        <Link
-          to="/StudentDashboard/StudentReport"
-          style={styles.navLink(activeLink === "StudentReport")}
-          onClick={() => setActiveLink("StudentReport")}
-        >
-          Exams Preparation Status
-        </Link>
-        <Link
-          to="/StudentDashboard/AiAudioLearning"
-          style={styles.navLink(activeLink === "AiAudioLearning")}
-          onClick={() => setActiveLink("AiAudioLearning")}
-        >
-          Talk to the AI
-        </Link>
-        <Link
-          to="/StudentDashboard/StudentUsageReport"
-          style={styles.navLink(activeLink === "StudentUsageReport")}
-          onClick={() => setActiveLink("StudentUsageReport")}
-        >
-          App Usage
-        </Link>
-        <Link
-          to="/StudentDashboard/ResponseAnalyzer"
-          style={styles.navLink(activeLink === "ResponseAnalyzer")}
-          onClick={() => setActiveLink("ResponseAnalyzer")}
-        >
-          Response Analyzer
-        </Link>
+        {[
+          ["ai_evaluator", "📝 AI Evaluator"],
+          ["ai_learning", "📘 AI Interactive Learning"],
+          ["StudentReport", "📊 Exams Preparation Status"],
+          ["AiAudioLearning", "🎧 Talk to the AI"],
+          ["StudentUsageReport", "📈 App Usage"],
+          ["ResponseAnalyzer", "🔍 Response Analyzer"],
+        ].map(([key, label]) => (
+          <Link
+            key={key}
+            to={`/StudentDashboard/${key}`}
+            style={styles.navLink(activeLink === key)}
+            onClick={() => setActiveLink(key)}
+          >
+            {label}
+          </Link>
+        ))}
       </nav>
-      
 
       {/* Main Content */}
-      <main
-  style={{
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#fff",
-    padding: "20px",
-    overflowY: "auto",
-    boxSizing: "border-box",
-  }}
->
-  <div
-    style={{
-      width: "100%",
-      maxWidth: "100%",
-      margin: 0,
-      padding: "0 20px",
-      boxSizing: "border-box",
-    }}
-  >
-    <Outlet />
-  </div>
-</main>
+      <main style={styles.mainContent}>
+        <Outlet />
+      </main>
 
-
-
-
+      {/* Footer */}
+      <footer style={styles.footer}>
+        © {new Date().getFullYear()} AI Tutor | Empowering Smarter Learning
+      </footer>
     </div>
   );
 };
