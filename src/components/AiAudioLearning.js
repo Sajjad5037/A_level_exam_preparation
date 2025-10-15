@@ -330,7 +330,7 @@ const AiAudioLearning = ({ doctorData }) => {
           <label htmlFor="questionSelect">Question:</label>
           <select
             id="questionSelect"
-            value={questionText}
+            value={question_text}
             onChange={(e) => setQuestionText(e.target.value)}
           >
             <option value="">
