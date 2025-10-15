@@ -275,51 +275,17 @@ Student Response Length: ${result.student_response.length} characters`);
   };
 
  return (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      padding: "20px 0", // vertical only
-      fontFamily: "Arial, sans-serif",
-      gap: 20,
-      width: "100%",
-      boxSizing: "border-box",
-    }}
-  >
+  <div className="container">
     {/* Left Panel */}
-    <div
-      style={{
-        width: 300,
-        padding: 20,
-        backgroundColor: "#f9f9f9",
-        borderRadius: 8,
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        height: 525,
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
-      }}
-    >
-      <h3 style={{ textAlign: "center", color: "#333", marginBottom: 20 }}>
-        Upload Image of your response
-      </h3>
+    <div className="panel left-panel">
+      <h3>Upload Image of your response</h3>
 
       <select
         multiple
         size={10}
         value={selectedImages.map((img) => img.name)}
         onChange={handleImageSelect}
-        style={{
-          width: "100%",
-          height: 300,
-          padding: 10,
-          marginBottom: 15,
-          borderRadius: 5,
-          border: "1px solid #ccc",
-          flexShrink: 0,
-          boxSizing: "border-box",
-        }}
+        className="image-select"
       >
         {images.map((file, index) => (
           <option key={index} value={file.name}>
@@ -328,26 +294,8 @@ Student Response Length: ${result.student_response.length} characters`);
         ))}
       </select>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 10,
-          marginTop: "auto",
-        }}
-      >
-        <label
-          htmlFor="fileInput"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#4CAF50",
-            color: "#fff",
-            borderRadius: 5,
-            cursor: "pointer",
-            textAlign: "center",
-            userSelect: "none",
-          }}
-        >
+      <div className="left-buttons">
+        <label htmlFor="fileInput" className="upload-label">
           Upload Image
         </label>
         <input
@@ -359,77 +307,31 @@ Student Response Length: ${result.student_response.length} characters`);
           style={{ display: "none" }}
         />
 
-        <button
-          onClick={handleRemoveSelected}
-          style={{
-            padding: 10,
-            borderRadius: 5,
-            color: "#fff",
-            backgroundColor: "#FF0000",
-            cursor: "pointer",
-            border: "none",
-          }}
-        >
+        <button className="remove-btn" onClick={handleRemoveSelected}>
           Remove
         </button>
 
         <button
+          className={`train-btn ${isProcessing ? "processing" : ""}`}
           onClick={handleTrain}
           disabled={isProcessing}
-          style={{
-            padding: 10,
-            borderRadius: 5,
-            color: "#fff",
-            backgroundColor: isProcessing ? "#007bff" : "#4CAF50",
-            cursor: isProcessing ? "not-allowed" : "pointer",
-            border: "none",
-          }}
         >
-          {isProcessing ? "Processing images..." : "Send your essay for checking..."}
+          {isProcessing
+            ? "Processing images..."
+            : "Send your essay for checking..."}
         </button>
       </div>
     </div>
 
     {/* Right Panel */}
-    <div
-      style={{
-        flex: 1,
-        padding: 20,
-        backgroundColor: "#f9f9f9",
-        borderRadius: 8,
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        height: 525,
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
-      }}
-    >
+    <div className="panel right-panel">
       {/* Subject & Marks Row */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          gap: 20,
-          marginBottom: "12px",
-        }}
-      >
+      <div className="form-row">
         {/* Subject Dropdown */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label
-            htmlFor="subjectSelect"
-            style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}
-          >
-            Subject:
-          </label>
+        <div className="form-group">
+          <label htmlFor="subjectSelect">Subject:</label>
           <select
             id="subjectSelect"
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              minWidth: 160,
-            }}
             value={subject}
             onChange={(e) => {
               setSubject(e.target.value);
@@ -447,25 +349,14 @@ Student Response Length: ${result.student_response.length} characters`);
         </div>
 
         {/* Marks Dropdown */}
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label
-            htmlFor="marksInput"
-            style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}
-          >
-            Marks:
-          </label>
+        <div className="form-group">
+          <label htmlFor="marksInput">Marks:</label>
           <select
             id="marksInput"
             value={marks}
             onChange={(e) => {
               setMarks(e.target.value);
               setQuestionText("");
-            }}
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              minWidth: 100,
             }}
           >
             <option value="">-- Select Marks --</option>
@@ -479,21 +370,10 @@ Student Response Length: ${result.student_response.length} characters`);
         </div>
 
         {/* Question Dropdown */}
-        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          <label
-            htmlFor="questionSelect"
-            style={{ fontWeight: 600, color: "#333", marginBottom: 4 }}
-          >
-            Question:
-          </label>
+        <div className="form-group flex-grow">
+          <label htmlFor="questionSelect">Question:</label>
           <select
             id="questionSelect"
-            style={{
-              padding: "6px 10px",
-              borderRadius: 6,
-              border: "1px solid #ccc",
-              width: "100%",
-            }}
             value={question_text}
             onChange={(e) => setQuestionText(e.target.value)}
           >
@@ -512,19 +392,7 @@ Student Response Length: ${result.student_response.length} characters`);
       </div>
 
       {/* Chat / Content Box */}
-      <div
-        style={{
-          height: 400,
-          overflowY: "auto",
-          marginBottom: 15,
-          border: "1px solid #ddd",
-          padding: 15,
-          borderRadius: 8,
-          backgroundColor: "#fff",
-          flexShrink: 0,
-          boxSizing: "border-box",
-        }}
-      >
+      <div className="chat-box">
         {chatLog.map((msg, index) => {
           let cleanedMessage = msg.message;
           if (msg.type === "bot" && typeof msg.message === "string") {
@@ -536,22 +404,12 @@ Student Response Length: ${result.student_response.length} characters`);
           return (
             <div
               key={index}
-              style={{
-                marginBottom: 10,
-                textAlign: msg.type === "user" ? "right" : "left",
-              }}
+              className={`chat-message ${
+                msg.type === "user" ? "user" : "bot"
+              }`}
             >
               <div
-                style={{
-                  display: "inline-block",
-                  backgroundColor: msg.type === "user" ? "#007bff" : "#f1f1f1",
-                  color: msg.type === "user" ? "#fff" : "#000",
-                  padding: 10,
-                  borderRadius: 10,
-                  maxWidth: msg.type === "user" ? "70%" : "90%",
-                  wordWrap: "break-word",
-                  lineHeight: 1.6,
-                }}
+                className="chat-bubble"
                 dangerouslySetInnerHTML={
                   msg.type === "bot" && typeof cleanedMessage === "string"
                     ? { __html: marked.parse(cleanedMessage) }
@@ -568,11 +426,10 @@ Student Response Length: ${result.student_response.length} characters`);
           );
         })}
       </div>
-
-      
     </div>
   </div>
 );
+
 
 };
 
