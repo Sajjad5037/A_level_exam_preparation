@@ -161,14 +161,17 @@ const StudentDashboard = ({ doctorData }) => {
           ["StudentUsageReport", "📈 App Usage"],
           ["ResponseAnalyzer", "🔍 Response Analyzer"],
         ].map(([key, label]) => (
-          <Link
+          <a
             key={key}
-            to={`/StudentDashboard/${key}`}
+            href={`/StudentDashboard/${key}`}
             style={styles.navLink(activeLink === key)}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setActiveLink(key)}
           >
             {label}
-          </Link>
+          </a>
+
         ))}
       </nav>
 
