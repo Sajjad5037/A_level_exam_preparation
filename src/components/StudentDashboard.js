@@ -47,80 +47,97 @@ const StudentDashboard = ({ doctorData }) => {
   };
 
   const styles = {
-    container: {
-      display: "flex",
-      flexDirection: "column",
-      minHeight: "100vh",
-      fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
-      backgroundColor: colors.background,
-      color: colors.textPrimary,
-    },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+    fontFamily: "'Inter', 'Segoe UI', Arial, sans-serif",
+    background: "linear-gradient(to bottom right, #e0c3fc, #8ec5fc)", // gradient like chat UI
+    color: colors.textPrimary,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: "1rem",
+    boxSizing: "border-box",
+  },
 
-    header: {
-      padding: "14px 24px",
-      backgroundColor: colors.primary,
-      color: "#fff",
-      fontSize: "16px",
-      fontWeight: "600",
-      letterSpacing: "0.5px",
-      boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
+  header: {
+    padding: "16px 24px",
+    background: "linear-gradient(to right, #4f46e5, #9333ea)", // modern gradient header
+    color: "#fff",
+    fontSize: "1.1rem",
+    fontWeight: "600",
+    letterSpacing: "0.5px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    maxWidth: "1100px",
+    borderRadius: "16px",
+    marginBottom: "15px",
+  },
 
-    headerTitle: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-    },
+  headerTitle: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+  },
 
-    navBar: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "10px",
-      backgroundColor: colors.surface,
-      padding: "10px 16px",
-      borderBottom: `1px solid ${colors.border}`,
-      boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-      fontSize: "14px",
-      justifyContent: "center",
-    },
+  navBar: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "10px",
+    backgroundColor: "#ffffff", // card-like nav background
+    padding: "10px 16px",
+    borderBottom: `1px solid ${colors.border}`,
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    fontSize: "14px",
+    justifyContent: "center",
+    width: "100%",
+    maxWidth: "1100px",
+    borderRadius: "12px",
+    marginBottom: "20px",
+  },
 
-    navLink: (isActive) => ({
-      textDecoration: "none",
-      color: isActive ? colors.primary : colors.textSecondary,
-      fontWeight: isActive ? "600" : "500",
-      padding: "8px 14px",
-      borderRadius: "6px",
-      backgroundColor: isActive ? colors.primaryLight : "transparent",
-      transition: "all 0.25s ease",
-      boxShadow: isActive ? "inset 0 0 4px rgba(0,0,0,0.05)" : "none",
-      cursor: "pointer",
-    }),
+  navLink: (isActive) => ({
+    textDecoration: "none",
+    color: isActive ? "#4f46e5" : colors.textSecondary,
+    fontWeight: isActive ? "600" : "500",
+    padding: "10px 16px",
+    borderRadius: "12px",
+    background: isActive ? "linear-gradient(to right, #dbeafe, #c7d2fe)" : "transparent",
+    boxShadow: isActive ? "inset 0 0 5px rgba(0,0,0,0.1)" : "none",
+    transition: "all 0.25s ease",
+    cursor: "pointer",
+  }),
 
-    mainContent: {
-      flex: 1,
-      width: "100%",
-      backgroundColor: colors.surface,
-      padding: "24px",
-      borderRadius: "10px",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-      overflowY: "auto",
-      margin: "20px auto",
-      maxWidth: "1100px",
-      boxSizing: "border-box",
-    },
+  mainContent: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "#ffffff", // card-like content
+    padding: "24px",
+    borderRadius: "20px",
+    boxShadow: "0 15px 30px rgba(0,0,0,0.15)",
+    overflowY: "auto",
+    margin: "0 auto 20px",
+    maxWidth: "1100px",
+    boxSizing: "border-box",
+  },
 
-    footer: {
-      textAlign: "center",
-      padding: "10px",
-      fontSize: "13px",
-      color: colors.textSecondary,
-      borderTop: `1px solid ${colors.border}`,
-      backgroundColor: colors.surface,
-    },
-  };
+  footer: {
+    textAlign: "center",
+    padding: "12px 0",
+    fontSize: "13px",
+    color: colors.textSecondary,
+    borderTop: `1px solid ${colors.border}`,
+    backgroundColor: "#ffffff",
+    borderRadius: "12px",
+    width: "100%",
+    maxWidth: "1100px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+    marginBottom: "20px",
+  },
+};
 
   return (
     <div style={styles.container}>
