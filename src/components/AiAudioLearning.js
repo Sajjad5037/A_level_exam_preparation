@@ -276,248 +276,115 @@ const AiAudioLearning = ({ doctorData }) => {
   };
 
   return (
-    <div
-      style={{
-        padding: 12,
-        fontFamily: "Arial, sans-serif",
-        width: "100%",
-        minHeight: "90vh",
-        background: "#f0f4f8",
-      }}
-    >
+    <div className="chat-container">
       {/* Controls */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 15, marginBottom: 20 }}>
+      <div className="controls">
         {/* Subject Dropdown */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label
-              htmlFor="subjectSelect"
-              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-            >
-              Subject:
-            </label>
-            <select
-              id="subjectSelect"
-              style={{
-                padding: "6px 10px",
-                borderRadius: 6,
-                border: "1px solid #ccc",
-                minWidth: 160,
-              }}
-              value={subject}
-              onChange={(e) => {
-                const selectedSubject = e.target.value;
-                setSubject(selectedSubject);
-                setMarks(""); // reset marks
-                setQuestionText(""); // reset question
-              }}
-            >
-              <option value="">-- Select Subject --</option>
-              <option value="sociology">Sociology</option>
-              <option value="economics">Economics</option>
-              <option value="history">History</option>
-              <option value="political_science">Political Science</option>
-              <option value="literature">Literature</option>
-            </select>
-          </div>
-    
-          {/* Marks Dropdown */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label
-              htmlFor="marksInput"
-              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-            >
-              Marks:
-            </label>
-            <select
-              id="marksInput"
-              value={marks}
-              onChange={(e) => {
-                const selectedMarks = e.target.value;
-                setMarks(selectedMarks);
-                setQuestionText(""); // reset question
-              }}
-              style={{
-                padding: "6px 10px",
-                borderRadius: 6,
-                border: "1px solid #ccc",
-                minWidth: 100,
-              }}
-            >
-              <option value="">-- Select Marks --</option>
-              {subject &&
-                Object.keys(questionsData[subject] || {}).map((markValue) => (
-                  <option key={markValue} value={markValue}>
-                    {markValue}
-                  </option>
-                ))}
-            </select>
-          </div>
-    
-          {/* Question Dropdown */}
-          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-            <label
-              htmlFor="questionSelect"
-              style={{ fontWeight: "600", color: "#333", marginBottom: "4px" }}
-            >
-              Question:
-            </label>
-            <select
-              id="questionSelect"
-              style={{
-                padding: "6px 10px",
-                borderRadius: 6,
-                border: "1px solid #ccc",
-                width: "100%",
-              }}
-              value={question_text}
-              onChange={(e) => setQuestionText(e.target.value)}
-            >
-              <option value="">
-                -- Select a valid subject and marks to see the list of questions --
-              </option>
-              {subject &&
-                marks &&
-                questionsData[subject]?.[marks]?.map((q, idx) => (
-                  <option key={idx} value={q}>
-                    {q}
-                  </option>
-                ))}
-            </select>
-          </div>
-        {/* Buttons */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, alignItems: "flex-end" }}>
-          <button
-           onClick={handleStartConversation}
-           disabled={isStartingConversation} // track loading state
-           style={{
-             padding: "10px 16px",
-             borderRadius: 8,
-             border: "none",
-             background: isStartingConversation ? "#007bff" : "#4CAF50", // optional color change
-             color: "#fff",
-             fontWeight: 600,
-             cursor: isStartingConversation ? "not-allowed" : "pointer",
-           }}
-         >
-           {isStartingConversation ? "Starting..." : "Start"}
-         </button>
-          <button
-            onClick={handleRefresh}
-            style={{
-              padding: "10px 16px",
-              borderRadius: 8,
-              border: "none",
-              background: "#2196F3",
-              color: "#fff",
-              fontWeight: 600,
-              cursor: "pointer",
+        <div className="control-item">
+          <label htmlFor="subjectSelect">Subject:</label>
+          <select
+            id="subjectSelect"
+            value={subject}
+            onChange={(e) => {
+              const selected = e.target.value;
+              setSubject(selected);
+              setMarks("");
+              setQuestionText("");
             }}
           >
+            <option value="">-- Select Subject --</option>
+            <option value="sociology">Sociology</option>
+            <option value="economics">Economics</option>
+            <option value="history">History</option>
+            <option value="political_science">Political Science</option>
+            <option value="literature">Literature</option>
+          </select>
+        </div>
+
+        {/* Marks Dropdown */}
+        <div className="control-item">
+          <label htmlFor="marksInput">Marks:</label>
+          <select
+            id="marksInput"
+            value={marks}
+            onChange={(e) => {
+              const selectedMarks = e.target.value;
+              setMarks(selectedMarks);
+              setQuestionText("");
+            }}
+          >
+            <option value="">-- Select Marks --</option>
+            {subject &&
+              Object.keys(questionsData[subject] || {}).map((markValue) => (
+                <option key={markValue} value={markValue}>
+                  {markValue}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {/* Question Dropdown */}
+        <div className="control-item flex-grow">
+          <label htmlFor="questionSelect">Question:</label>
+          <select
+            id="questionSelect"
+            value={questionText}
+            onChange={(e) => setQuestionText(e.target.value)}
+          >
+            <option value="">
+              -- Select a valid subject and marks to see the list of questions --
+            </option>
+            {subject &&
+              marks &&
+              questionsData[subject]?.[marks]?.map((q, idx) => (
+                <option key={idx} value={q}>
+                  {q}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        {/* Buttons */}
+        <div className="buttons">
+          <button
+            className={`start-btn ${isStartingConversation ? "disabled" : ""}`}
+            onClick={handleStartConversation}
+            disabled={isStartingConversation}
+          >
+            {isStartingConversation ? "Starting..." : "Start"}
+          </button>
+          <button className="refresh-btn" onClick={handleRefresh}>
             Refresh
           </button>
         </div>
       </div>
 
       {/* Chat Window */}
-      <div
-        ref={chatWindowRef}
-        style={{
-          background: "#fff",
-          borderRadius: 12,
-          padding: 15,
-          height: 200,
-          overflowY: "auto",
-          marginBottom: 20,
-          boxShadow: "inset 0 2px 6px rgba(0,0,0,0.1)",
-        }}
-      >
+      <div className="chat-window" ref={chatWindowRef}>
         {chatLog.map((msg, index) => (
           <div
             key={index}
-            style={{ marginBottom: 10, textAlign: msg.sender === "user" ? "right" : "left" }}
+            className={`chat-message ${
+              msg.sender === "user" ? "user-msg" : "ai-msg"
+            }`}
           >
-            <span
-              style={{
-                display: "inline-block",
-                padding: "8px 12px",
-                borderRadius: 10,
-                background: msg.sender === "user" ? "#DCF8C6" : "#E3F2FD",
-                color: "#333",
-                maxWidth: "70%",
-                wordWrap: "break-word",
-              }}
-            >
-              {msg.sender === "user" ? "🧑 " : "🤖 "} {msg.text}
-            </span>
+            {msg.sender === "user" ? "🧑 " : "🤖 "} {msg.text}
           </div>
         ))}
       </div>
 
       {/* Voice Assistant */}
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: 20,
-          background: "#fff",
-          padding: 20,
-          borderRadius: 16,
-          boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-        }}
-      >
-        <div style={{ marginBottom: 20, fontWeight: 600 }}>Talk to AI Tutor</div>
+      <div className="voice-assistant">
+        <div className="voice-title">Talk to AI Tutor</div>
         <button
+          className={`voice-btn ${isRecording ? "recording" : ""}`}
           onClick={isRecording ? stopRecording : startRecording}
-          style={{
-            width: 60,
-            height: 60,
-            borderRadius: "50%",
-            border: "none",
-            background: isRecording ? "#F44336" : "#007BFF",
-            cursor: "pointer",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-            position: "relative",
-            outline: "none",
-          }}
         >
-          <div style={{ width: 20, height: 20, background: "#fff", borderRadius: "50%", margin: "0 auto", marginTop: 30 }} />
-          {isRecording && (
-            <div
-              style={{
-                position: "absolute",
-                top: "-10px",
-                left: "-10px",
-                width: 80,
-                height: 80,
-                borderRadius: "50%",
-                border: "2px solid #F44336",
-                animation: "pulse 1s infinite",
-              }}
-            />
-          )}
+          <div className="voice-inner-circle" />
+          {isRecording && <div className="pulse-circle" />}
         </button>
-        <audio
-         ref={audioRef}
-         controls
-         src={audioSrc || ""}
-         style={{
-           display: "block",
-           margin: "16px auto 0",
-           width: "100%",
-           maxWidth: 320,               // reduced from 400
-           borderRadius: 8,
-         }}
-       />
+        <audio ref={audioRef} controls src={audioSrc || ""} className="audio-player" />
       </div>
-
-      <style>
-        {`
-          @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 0.4; }
-            100% { transform: scale(1); opacity: 0.7; }
-          }
-        `}
-      </style>
     </div>
   );
 };
