@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { marked } from "marked";
+import './Ai_Learning.css';
+
 
 
 const Ai_Learning = ({ doctorData }) => {
