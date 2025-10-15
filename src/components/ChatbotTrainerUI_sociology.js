@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { marked } from 'marked';
+import "./ChatbotTrainerUI_sociology.css";
 
 
 const ChatbotTrainerUI_sociology = ({ doctorData }) => {
