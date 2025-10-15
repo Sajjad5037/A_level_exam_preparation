@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import './AiAudioLearning.css';
+
  
 const AiAudioLearning = ({ doctorData }) => {
   const [subject, setSubject] = useState("");
