@@ -161,17 +161,14 @@ const StudentDashboard = ({ doctorData }) => {
           ["StudentUsageReport", "📈 App Usage"],
           ["ResponseAnalyzer", "🔍 Response Analyzer"],
         ].map(([key, label]) => (
-          <span
+          <Link
             key={key}
+            to={`/StudentDashboard/${key}`}
+            style={styles.navLink(activeLink === key)}
             onClick={() => setActiveLink(key)}
-            style={{
-              ...styles.navLink(activeLink === key),
-              cursor: "pointer",
-              textDecoration: "underline", // makes it look more like a link
-            }}
           >
             {label}
-          </span>
+          </Link>
         ))}
       </nav>
 
